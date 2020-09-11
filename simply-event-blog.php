@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Simply Event Blog
  * Plugin URI:        https://github.com/closemarketing/simply-event-blog
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Adds events features to posts.
  * Version:           1.0.0
  * Author:            Closemarketing
  * Author URI:        https://www.close.marketing

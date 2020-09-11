@@ -40,18 +40,43 @@ class Simply_Event_Blog_Public {
 	 */
 	private $version;
 
+	private $months;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
+		$this->months      = array(
+			__( 'Jan', 'simply-event-blog' ),
+			__( 'Feb', 'simply-event-blog' ),
+			__( 'Mar', 'simply-event-blog' ),
+			__( 'Apr', 'simply-event-blog' ),
+			__( 'May', 'simply-event-blog' ),
+			__( 'Jun', 'simply-event-blog' ),
+			__( 'Jul', 'simply-event-blog' ),
+			__( 'Aug', 'simply-event-blog' ),
+			__( 'Sep', 'simply-event-blog' ),
+			__( 'Nov', 'simply-event-blog' ),
+			__( 'Dec', 'simply-event-blog' ),
+		);
+		$this->days        = array(
+			__( 'Mon', 'simply-event-blog' ),
+			__( 'Tue', 'simply-event-blog' ),
+			__( 'Wed', 'simply-event-blog' ),
+			__( 'Thu', 'simply-event-blog' ),
+			__( 'Fri', 'simply-event-blog' ),
+			__( 'Sat', 'simply-event-blog' ),
+			__( 'Sun', 'simply-event-blog' ),
+		);
 
+		add_action( 'generate_before_content', array( $this, 'adds_html_date' ), 10 );
 	}
 
 	/**
@@ -60,44 +85,41 @@ class Simply_Event_Blog_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Simply_Event_Blog_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Simply_Event_Blog_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/simply-event-blog-public.css', array(), $this->version, 'all' );
 
 	}
 
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
+	 * Adds html for date
 	 *
-	 * @since    1.0.0
+	 * @return void
 	 */
-	public function enqueue_scripts() {
+	public function adds_html_date() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Simply_Event_Blog_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Simply_Event_Blog_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		$post_id        = get_the_ID();
+		$seb_date_start = get_post_meta( $post_id, 'seb_date_start', true );
+		$seb_time_start = get_post_meta( $post_id, 'seb_time_start', true );
+		$seb_date_fin   = get_post_meta( $post_id, 'seb_date_fin', true );
+		$seb_time_fin   = get_post_meta( $post_id, 'seb_time_fin', true );
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simply-event-blog-public.js', array( 'jquery' ), $this->version, false );
+		if ( $seb_date_start ) {
+			echo '<div class="simply-event-blog">';
+			echo '<div class="day day-start">';
+			echo '<p class="monthday">' . esc_html( ltrim( gmdate( 'd', strtotime( $seb_date_start ) ), '0' ) ) . '</p>';
+			echo '<p class="month">' . esc_html( $this->months[ date( 'n', strtotime( $seb_date_start ) ) - 1 ] ) . '</p>';
+			echo '<p class="time">' . esc_html( gmdate( 'H:i', strtotime( $seb_time_fin ) ) ) . '</p>';
+			echo '</div>';
 
+			if ( $seb_date_fin ) {
+				echo '<div class="separator">-</div>';
+				echo '<div class="day day-fin">';
+				echo '<p class="monthday">' . esc_html( ltrim( gmdate( 'd', strtotime( $seb_date_fin ) ), '0' ) ) . '</p>';
+				echo '<p class="month">' . esc_html( $this->months[ date( 'n', strtotime( $seb_date_fin ) ) - 1 ] ) . '</p>';
+				echo '<p class="time">' . esc_html( gmdate( 'H:i', strtotime( $seb_time_fin ) ) ) . '</p>';
+				echo '</div>';
+			}
+			echo '</div>';
+		}
 	}
 
 }

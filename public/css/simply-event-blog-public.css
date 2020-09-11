@@ -1,4 +1,38 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.simply-event-blog {
+	float: left;
+}
+.simply-event-blog .separator{
+	float: left;
+	margin: 20px 15px 0 0;
+	font-weight: 700;
+}
+.simply-event-blog .day{
+	float: left;
+	background-color: #1F3883;
+	margin-right: 15px;
+	text-align: center;
+	min-width: 55px;
+}
+.simply-event-blog .day .month,
+.simply-event-blog .day .monthday,
+.simply-event-blog .day .time {
+	margin-bottom: 0;
+}
+.simply-event-blog .day .monthday {
+	background-color: #fff;
+	text-transform: uppercase;
+	color: #1F3883;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	padding: 2px 7px;
+	margin: 5px;
+	display: block;
+	line-height: 1.8rem;
+}
+.simply-event-blog .day .time,
+.simply-event-blog .day .month {
+	color: #fff;
+	font-weight: bold;
+	font-size: 1rem;
+}
