@@ -3,7 +3,7 @@
  * Plugin Name:       Simply Event Blog
  * Plugin URI:        https://github.com/closemarketing/simply-event-blog
  * Description:       Adds events features to posts.
- * Version:           1.0.0
+ * Version:           0.1
  * Author:            Closemarketing
  * Author URI:        https://www.close.marketing
  * License:           GPL-2.0+
@@ -12,7 +12,7 @@
  * Domain Path:       /languages
  * 
  * @link              https://www.close.marketing
- * @since             1.0.0
+ * @since             0.1
  * @package           Simply_Event_Blog
  */
 
@@ -23,10 +23,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SIMPLY_EVENT_BLOG_VERSION', '1.0.0' );
+define( 'SIMPLY_EVENT_BLOG_VERSION', '0.1' );
 
 /**
  * The code that runs during plugin activation.

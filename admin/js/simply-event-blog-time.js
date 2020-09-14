@@ -2,7 +2,6 @@
 	'use strict';
 
 	$(document).ready(function(){
-		$('.wp-admin .event-date').datepicker({ dateFormat: 'yy-mm-dd' });
 
 		$('.wp-admin .event-hour').timepicker({
 			timeFormat: 'h:mm p',

@@ -64,18 +64,6 @@ class Simply_Event_Blog_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Simply_Event_Blog_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Simply_Event_Blog_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/simply-event-blog-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -87,8 +75,23 @@ class Simply_Event_Blog_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simply-event-blog-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script(
+			'jquery.timepicker',
+			plugin_dir_url( __FILE__ ) . 'js/jquery.timepicker.min.js',
+			array( 'jquery' ),
+			$this->version,
+			true
+		);
 
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/simply-event-blog-admin.js',
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ),
+			$this->version,
+			false
+		);
+
+		wp_enqueue_style( 'jquery-ui-datepicker' );
 	}
 
 	/**
@@ -123,22 +126,34 @@ class Simply_Event_Blog_Admin {
 		esc_html_e( 'Adds the information for the event in this post.', 'simply-event-blog' );
 		?>
 		<p>
-			<label for="seb_date_start"><?php esc_html_e( 'Date start (YYYY-MM-DD)', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_date_start" id="seb_date_start" value="<?php echo esc_html( $seb_date_start ); ?>" />
+			<label for="seb_date_start"><?php esc_html_e( 'Date start', 'simply-event-blog' ); ?></label>
+			<input type="text" name="seb_date_start" id="seb_date_start" class="event-date" value="<?php echo esc_html( $seb_date_start ); ?>" />
 		</p>
 		<p>
-			<label for="seb_time_start"><?php esc_html_e( 'Time start (HH:MM)', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_time_start" id="seb_time_start" value="<?php echo esc_html( $seb_time_start ); ?>" />
+			<label for="seb_time_start"><?php esc_html_e( 'Time start', 'simply-event-blog' ); ?></label>
+			<input type="text" name="seb_time_start" id="seb_time_start" class="event-hour" value="<?php echo esc_html( $seb_time_start ); ?>" />
 		</p>
 		<p>
-			<label for="seb_date_finish"><?php esc_html_e( 'Date finish (YYYY-MM-DD)', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_date_fin" id="seb_date_fin" value="<?php echo esc_html( $seb_date_fin ); ?>" />
+			<label for="seb_date_finish"><?php esc_html_e( 'Date finish', 'simply-event-blog' ); ?></label>
+			<input type="text" name="seb_date_fin" id="seb_date_fin" class="event-date" value="<?php echo esc_html( $seb_date_fin ); ?>" />
 		</p>
 		<p>
-			<label for="seb_time_fin"><?php esc_html_e( 'Time finish (HH:MM)', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_time_fin" id="seb_time_fin" value="<?php echo esc_html( $seb_time_fin ); ?>" />
+			<label for="seb_time_fin"><?php esc_html_e( 'Time finish', 'simply-event-blog' ); ?></label>
+			<input type="text" name="seb_time_fin" id="seb_time_fin" class="event-hour" value="<?php echo esc_html( $seb_time_fin ); ?>" />
 		</p>
 		<?php
+	}
+
+	/**
+	 * Validate the date
+	 *
+	 * @param straing $date Date to validate.
+	 * @param string  $format Format of date.
+	 * @return boolean
+	 */
+	private function validate_date( $date, $format = 'Y-m-d' ) {
+		$date_to_validate = DateTime::createFromFormat( $format, $date );
+		return $date_to_validate && $date_to_validate->format( $format ) == $date;
 	}
 
 	/**
@@ -158,17 +173,17 @@ class Simply_Event_Blog_Admin {
 			return;
 		}
 		$allowed = array();
-		if ( isset( $_POST['seb_date_start'] ) ) {
-			update_post_meta( $post_id, 'seb_date_start', wp_kses( $_POST['seb_date_start'], $allowed ) );
+		if ( isset( $_POST['seb_date_start'] ) && $this->validate_date( $_POST['seb_date_start'] ) ) {
+			update_post_meta( $post_id, 'seb_date_start', sanitize_text_field( $_POST['seb_date_start'] ) );
 		}
 		if ( isset( $_POST['seb_time_start'] ) ) {
-			update_post_meta( $post_id, 'seb_time_start', wp_kses( $_POST['seb_time_start'], $allowed ) );
+			update_post_meta( $post_id, 'seb_time_start', sanitize_text_field( $_POST['seb_time_start'] ) );
 		}
 		if ( isset( $_POST['seb_date_fin'] ) ) {
-			update_post_meta( $post_id, 'seb_date_fin', wp_kses( $_POST['seb_date_fin'], $allowed ) );
+			update_post_meta( $post_id, 'seb_date_fin', sanitize_text_field( $_POST['seb_date_fin'] ) );
 		}
 		if ( isset( $_POST['seb_time_fin'] ) ) {
-			update_post_meta( $post_id, 'seb_time_fin', wp_kses( $_POST['seb_time_fin'], $allowed ) );
+			update_post_meta( $post_id, 'seb_time_fin', sanitize_text_field( $_POST['seb_time_fin'] ) );
 		}
 	}
 }
