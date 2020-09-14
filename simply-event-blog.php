@@ -3,7 +3,7 @@
  * Plugin Name:       Simply Event Blog
  * Plugin URI:        https://github.com/closemarketing/simply-event-blog
  * Description:       Adds events features to posts.
- * Version:           0.1
+ * Version:           0.1b2
  * Author:            Closemarketing
  * Author URI:        https://www.close.marketing
  * License:           GPL-2.0+
