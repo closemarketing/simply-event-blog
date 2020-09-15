@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: davidperez
-Donate link: https://www.close.marketing
+Donate link: https://www.closemarketing.es/go/donate/
 Tags: events, blog, posts
 Requires at least: 3.0.1
 Tested up to: 3.4
