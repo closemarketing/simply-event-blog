@@ -21,77 +21,14 @@
  * @author     Closemarketing <info@closemarketing.es>
  */
 class Simply_Event_Blog_Admin {
-
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-
+	public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'metabox_date' ) );
 		add_action( 'save_post', array( $this, 'metabox_date_save' ) );
-
-	}
-
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/simply-event-blog-admin.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		wp_enqueue_script(
-			'jquery.timepicker',
-			plugin_dir_url( __FILE__ ) . 'js/jquery.timepicker.min.js',
-			array( 'jquery' ),
-			$this->version,
-			true
-		);
-
-		wp_enqueue_script(
-			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'js/simply-event-blog-admin.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ),
-			$this->version,
-			false
-		);
-
-		wp_enqueue_style( 'jquery-ui-datepicker' );
 	}
 
 	/**
@@ -127,19 +64,19 @@ class Simply_Event_Blog_Admin {
 		?>
 		<p>
 			<label for="seb_date_start"><?php esc_html_e( 'Date start', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_date_start" id="seb_date_start" class="event-date" value="<?php echo esc_html( $seb_date_start ); ?>" />
+			<input type="date" name="seb_date_start" id="seb_date_start" class="event-date" value="<?php echo esc_html( $seb_date_start ); ?>" />
 		</p>
 		<p>
 			<label for="seb_time_start"><?php esc_html_e( 'Time start', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_time_start" id="seb_time_start" class="event-hour" value="<?php echo esc_html( $seb_time_start ); ?>" />
+			<input type="time" name="seb_time_start" id="seb_time_start" class="event-hour" value="<?php echo esc_html( $seb_time_start ); ?>" />
 		</p>
 		<p>
 			<label for="seb_date_finish"><?php esc_html_e( 'Date finish', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_date_fin" id="seb_date_fin" class="event-date" value="<?php echo esc_html( $seb_date_fin ); ?>" />
+			<input type="date" name="seb_date_fin" id="seb_date_fin" class="event-date" value="<?php echo esc_html( $seb_date_fin ); ?>" />
 		</p>
 		<p>
 			<label for="seb_time_fin"><?php esc_html_e( 'Time finish', 'simply-event-blog' ); ?></label>
-			<input type="text" name="seb_time_fin" id="seb_time_fin" class="event-hour" value="<?php echo esc_html( $seb_time_fin ); ?>" />
+			<input type="time" name="seb_time_fin" id="seb_time_fin" class="event-hour" value="<?php echo esc_html( $seb_time_fin ); ?>" />
 		</p>
 		<?php
 	}
@@ -187,3 +124,5 @@ class Simply_Event_Blog_Admin {
 		}
 	}
 }
+
+new Simply_Event_Blog_Admin();

@@ -49,10 +49,7 @@ class Simply_Event_Blog_Public {
 	 * @param      string $plugin_name       The name of the plugin.
 	 * @param      string $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+	public function __construct() {
 		$this->months      = array(
 			__( 'Jan', 'simply-event-blog' ),
 			__( 'Feb', 'simply-event-blog' ),
@@ -85,8 +82,13 @@ class Simply_Event_Blog_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/simply-event-blog-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style(
+			'simply-event-blog',
+			SEB_PLUGIN_URL . 'css/simply-event-blog-public.css',
+			array(),
+			SEB_VERSION,
+			'all'
+		);
 	}
 
 	/**
@@ -95,7 +97,6 @@ class Simply_Event_Blog_Public {
 	 * @return void
 	 */
 	public function adds_html_date() {
-
 		$post_id        = get_the_ID();
 		$seb_date_start = get_post_meta( $post_id, 'seb_date_start', true );
 		$seb_time_start = get_post_meta( $post_id, 'seb_time_start', true );
@@ -121,5 +122,6 @@ class Simply_Event_Blog_Public {
 			echo '</div>';
 		}
 	}
-
 }
+
+new Simply_Event_Blog_Public();
