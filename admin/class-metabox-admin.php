@@ -175,4 +175,4 @@ class Simply_Event_Blog_Admin {
 	}
 }
 
-new Simply) _Event_Blog_Admin();
+new Simply_Event_Blog_Admin();
