@@ -1,14 +1,14 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://www.close.marketing
- * @since      1.0.0
- *
- * @package    Simply_Event_Blog
- * @subpackage Simply_Event_Blog/public
+ * @package    WordPress
+ * @author     David Perez <david@close.technology>
+ * @copyright  2024 Closemarketing
+ * @version    1.0
  */
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The public-facing functionality of the plugin.
@@ -21,36 +21,27 @@
  * @author     Closemarketing <info@closemarketing.es>
  */
 class Simply_Event_Blog_Public {
+	/**
+	 * Array of days
+	 *
+	 * @var array
+	 */
+	private $days;
 
 	/**
-	 * The ID of this plugin.
+	 * Array of months
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var array
 	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
 	private $months;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of the plugin.
-	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct() {
-		$this->months      = array(
+		$this->months = array(
 			__( 'Jan', 'simply-event-blog' ),
 			__( 'Feb', 'simply-event-blog' ),
 			__( 'Mar', 'simply-event-blog' ),
@@ -63,7 +54,7 @@ class Simply_Event_Blog_Public {
 			__( 'Nov', 'simply-event-blog' ),
 			__( 'Dec', 'simply-event-blog' ),
 		);
-		$this->days        = array(
+		$this->days   = array(
 			__( 'Mon', 'simply-event-blog' ),
 			__( 'Tue', 'simply-event-blog' ),
 			__( 'Wed', 'simply-event-blog' ),
@@ -99,7 +90,6 @@ class Simply_Event_Blog_Public {
 	public function adds_html_date() {
 		$post_id        = get_the_ID();
 		$seb_date_start = get_post_meta( $post_id, 'seb_date_start', true );
-		$seb_time_start = get_post_meta( $post_id, 'seb_time_start', true );
 		$seb_date_fin   = get_post_meta( $post_id, 'seb_date_fin', true );
 		$seb_time_fin   = get_post_meta( $post_id, 'seb_time_fin', true );
 
@@ -107,7 +97,7 @@ class Simply_Event_Blog_Public {
 			echo '<div class="simply-event-blog">';
 			echo '<div class="day day-start">';
 			echo '<p class="monthday">' . esc_html( ltrim( gmdate( 'd', strtotime( $seb_date_start ) ), '0' ) ) . '</p>';
-			echo '<p class="month">' . esc_html( $this->months[ date( 'n', strtotime( $seb_date_start ) ) - 1 ] ) . '</p>';
+			echo '<p class="month">' . esc_html( $this->months[ gmdate( 'n', strtotime( $seb_date_start ) ) - 1 ] ) . '</p>';
 			echo '<p class="time">' . esc_html( gmdate( 'H:i', strtotime( $seb_time_fin ) ) ) . '</p>';
 			echo '</div>';
 
@@ -115,7 +105,7 @@ class Simply_Event_Blog_Public {
 				echo '<div class="separator">-</div>';
 				echo '<div class="day day-fin">';
 				echo '<p class="monthday">' . esc_html( ltrim( gmdate( 'd', strtotime( $seb_date_fin ) ), '0' ) ) . '</p>';
-				echo '<p class="month">' . esc_html( $this->months[ date( 'n', strtotime( $seb_date_fin ) ) - 1 ] ) . '</p>';
+				echo '<p class="month">' . esc_html( $this->months[ gmdate( 'n', strtotime( $seb_date_fin ) ) - 1 ] ) . '</p>';
 				echo '<p class="time">' . esc_html( gmdate( 'H:i', strtotime( $seb_time_fin ) ) ) . '</p>';
 				echo '</div>';
 			}

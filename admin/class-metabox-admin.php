@@ -62,20 +62,25 @@ class Simply_Event_Blog_Admin {
 
 		esc_html_e( 'Adds the information for the event in this post.', 'simply-event-blog' );
 		?>
+		<br/>
 		<p>
 			<label for="seb_date_start"><?php esc_html_e( 'Date start', 'simply-event-blog' ); ?></label>
+			<br/>
 			<input type="date" name="seb_date_start" id="seb_date_start" class="event-date" value="<?php echo esc_html( $seb_date_start ); ?>" />
 		</p>
 		<p>
 			<label for="seb_time_start"><?php esc_html_e( 'Time start', 'simply-event-blog' ); ?></label>
+			<br/>
 			<input type="time" name="seb_time_start" id="seb_time_start" class="event-hour" value="<?php echo esc_html( $seb_time_start ); ?>" />
 		</p>
 		<p>
 			<label for="seb_date_finish"><?php esc_html_e( 'Date finish', 'simply-event-blog' ); ?></label>
+			<br/>
 			<input type="date" name="seb_date_fin" id="seb_date_fin" class="event-date" value="<?php echo esc_html( $seb_date_fin ); ?>" />
 		</p>
 		<p>
 			<label for="seb_time_fin"><?php esc_html_e( 'Time finish', 'simply-event-blog' ); ?></label>
+			<br/>
 			<input type="time" name="seb_time_fin" id="seb_time_fin" class="event-hour" value="<?php echo esc_html( $seb_time_fin ); ?>" />
 		</p>
 		<?php
