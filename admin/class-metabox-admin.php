@@ -59,6 +59,11 @@ class Simply_Event_Blog_Admin {
 		$seb_time_start = get_post_meta( $post->ID, 'seb_time_start', true );
 		$seb_date_fin   = get_post_meta( $post->ID, 'seb_date_fin', true );
 		$seb_time_fin   = get_post_meta( $post->ID, 'seb_time_fin', true );
+		$seb_address_1  = get_post_meta( $post->ID, 'seb_address_1', true );
+		$seb_address_2  = get_post_meta( $post->ID, 'seb_address_2', true );
+		$seb_zip        = get_post_meta( $post->ID, 'seb_zip', true );
+		$seb_city       = get_post_meta( $post->ID, 'seb_city', true );
+		$seb_state      = get_post_meta( $post->ID, 'seb_state', true );
 
 		esc_html_e( 'Adds the information for the event in this post.', 'simply-event-blog' );
 		?>
@@ -82,6 +87,31 @@ class Simply_Event_Blog_Admin {
 			<label for="seb_time_fin"><?php esc_html_e( 'Time finish', 'simply-event-blog' ); ?></label>
 			<br/>
 			<input type="time" name="seb_time_fin" id="seb_time_fin" class="event-hour" value="<?php echo esc_html( $seb_time_fin ); ?>" />
+		</p>
+		<p>
+			<label for="seb_address_1"><?php esc_html_e( 'Address 1', 'simply-event-blog' ); ?></label>
+			<br/>
+			<input type="text" name="seb_address_1" id="seb_address_1" class="event-address" value="<?php echo esc_html( $seb_address_1 ); ?>" />
+		</p>
+		<p>
+			<label for="seb_address_2"><?php esc_html_e( 'Address 2', 'simply-event-blog' ); ?></label>
+			<br/>
+			<input type="text" name="seb_address_2" id="seb_address_2" class="event-address" value="<?php echo esc_html( $seb_address_2 ); ?>" />
+		</p>
+		<p>
+			<label for="seb_zip"><?php esc_html_e( 'ZIP', 'simply-event-blog' ); ?></label>
+			<br/>
+			<input type="text" name="seb_zip" id="seb_zip" class="event-address" value="<?php echo esc_html( $seb_zip ); ?>" />
+		</p>
+		<p>
+			<label for="seb_city"><?php esc_html_e( 'City', 'simply-event-blog' ); ?></label>
+			<br/>
+			<input type="text" name="seb_city" id="seb_city" class="event-address" value="<?php echo esc_html( $seb_city ); ?>" />
+		</p>
+		<p>
+			<label for="seb_state"><?php esc_html_e( 'State', 'simply-event-blog' ); ?></label>
+			<br/>
+			<input type="text" name="seb_state" id="seb_state" class="event-address" value="<?php echo esc_html( $seb_state ); ?>" />
 		</p>
 		<?php
 	}
@@ -116,18 +146,33 @@ class Simply_Event_Blog_Admin {
 		}
 		$allowed = array();
 		if ( isset( $_POST['seb_date_start'] ) && $this->validate_date( $_POST['seb_date_start'] ) ) {
-			update_post_meta( $post_id, 'seb_date_start', sanitize_text_field( $_POST['seb_date_start'] ) );
+			update_post_meta( $post_id, 'seb_date_start', sanitize_text_field( wp_unslash( $_POST['seb_date_start'] ) ) );
 		}
 		if ( isset( $_POST['seb_time_start'] ) ) {
-			update_post_meta( $post_id, 'seb_time_start', sanitize_text_field( $_POST['seb_time_start'] ) );
+			update_post_meta( $post_id, 'seb_time_start', sanitize_text_field( wp_unslash( $_POST['seb_time_start'] ) ) );
 		}
 		if ( isset( $_POST['seb_date_fin'] ) ) {
-			update_post_meta( $post_id, 'seb_date_fin', sanitize_text_field( $_POST['seb_date_fin'] ) );
+			update_post_meta( $post_id, 'seb_date_fin', sanitize_text_field( wp_unslash( $_POST['seb_date_fin'] ) ) );
 		}
 		if ( isset( $_POST['seb_time_fin'] ) ) {
-			update_post_meta( $post_id, 'seb_time_fin', sanitize_text_field( $_POST['seb_time_fin'] ) );
+			update_post_meta( $post_id, 'seb_time_fin', sanitize_text_field( wp_unslash( $_POST['seb_time_fin'] ) ) );
+		}
+		if ( isset( $_POST['seb_address_1'] ) ) {
+			update_post_meta( $post_id, 'seb_address_1', sanitize_text_field( wp_unslash( $_POST['seb_address_1'] ) ) );
+		}
+		if ( isset( $_POST['seb_address_2'] ) ) {
+			update_post_meta( $post_id, 'seb_address_2', sanitize_text_field( wp_unslash( $_POST['seb_address_2'] ) ) );
+		}
+		if ( isset( $_POST['seb_zip'] ) ) {
+			update_post_meta( $post_id, 'seb_zip', sanitize_text_field( wp_unslash( $_POST['seb_zip'] ) ) );
+		}
+		if ( isset( $_POST['seb_city'] ) ) {
+			update_post_meta( $post_id, 'seb_city', sanitize_text_field( wp_unslash( $_POST['seb_city'] ) ) );
+		}
+		if ( isset( $_POST['seb_state'] ) ) {
+			update_post_meta( $post_id, 'seb_state', sanitize_text_field( wp_unslash( $_POST['seb_state'] ) ) );
 		}
 	}
 }
 
-new Simply_Event_Blog_Admin();
+new Simply) _Event_Blog_Admin();
